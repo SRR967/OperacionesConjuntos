@@ -44,10 +44,23 @@ def diferencia(primer_conjunto, otros_conjuntos):
     
     return resultado
 
+"""
 def diferencia_simetrica(conjuntos):
     union_total = union(conjuntos)
     interseccion_total = interseccion(conjuntos)
     return diferencia(union_total, [interseccion_total])
+
+"""
+
+def diferencia_simetrica(conjunto_a, conjunto_b):
+    diferencia_simetrica = set()
+    for elemento in conjunto_a:
+        if elemento not in conjunto_b:
+            diferencia_simetrica.add(elemento)
+    for elemento in conjunto_b:
+        if elemento not in conjunto_a:
+            diferencia_simetrica.add(elemento)
+    return diferencia_simetrica
 
 def es_subconjunto(conjunto_A, otros_conjuntos):
     for conjunto_B in otros_conjuntos:
@@ -63,7 +76,7 @@ def main ():
     print("Unión: ", union(conjuntos))
     print("Intersección: ", interseccion(conjuntos))
     print("Diferencia del primer conjunto con respecto a los demás: ", diferencia(conjuntos[0], conjuntos[1:]))
-    print("Diferencia Simétrica: ", diferencia_simetrica(conjuntos))
+    print("Diferencia simetrica de los dos primeros conjuntos: ", diferencia_simetrica(conjuntos[0],conjuntos[1]))
 
 main()
 
