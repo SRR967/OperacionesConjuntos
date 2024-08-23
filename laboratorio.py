@@ -77,6 +77,10 @@ def main ():
     print("Intersección: ", interseccion(conjuntos))
     print("Diferencia del primer conjunto con respecto a los demás: ", diferencia(conjuntos[0], conjuntos[1:]))
     print("Diferencia simetrica de los dos primeros conjuntos: ", diferencia_simetrica(conjuntos[0],conjuntos[1]))
+    print("¿El conjunto A es subconjunto B ?", es_subconjunto(conjuntos[0], conjuntos[1]))
+    print("¿El conjunto A es superconjunto de B?", es_superconjunto(conjuntos[0],conjuntos[1]))
+
+
 
 main()
 
