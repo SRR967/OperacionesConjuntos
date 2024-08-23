@@ -1,3 +1,7 @@
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn3
+
+
 def ingresar_conjuntos():
     num_conjuntos = int(input("¿Cuántos conjuntos desea ingresar? "))
     conjuntos = []
@@ -44,13 +48,6 @@ def diferencia(primer_conjunto, otros_conjuntos):
     
     return resultado
 
-"""
-def diferencia_simetrica(conjuntos):
-    union_total = union(conjuntos)
-    interseccion_total = interseccion(conjuntos)
-    return diferencia(union_total, [interseccion_total])
-
-"""
 
 def diferencia_simetrica(conjunto_a, conjunto_b):
     diferencia_simetrica = set()
@@ -70,6 +67,35 @@ def es_subconjunto(conjunto_A, otros_conjuntos):
     return True
 
 
+def graficar_interseccion(conjunto_a,conjunto_b,conjunto_c):
+    set_a = set(conjunto_a)
+    set_b = set(conjunto_b)
+    set_c = set(conjunto_c)
+    
+    
+    venn = venn3([set_a, set_b, set_c], ('Conjunto A', 'Conjunto B', 'Conjunto C'))
+
+    
+    unicos_a = set_a - set_b - set_c
+    unicos_b = set_b - set_a - set_c
+    unicos_c = set_c - set_a - set_b
+    interseccion_abc = set_a & set_b & set_c
+
+    
+    if venn.get_label_by_id('100'):  
+        venn.get_label_by_id('100').set_text('\n'.join(map(str, unicos_a)))
+    if venn.get_label_by_id('010'):  
+        venn.get_label_by_id('010').set_text('\n'.join(map(str, unicos_b)))
+    if venn.get_label_by_id('001'):  
+        venn.get_label_by_id('001').set_text('\n'.join(map(str, unicos_c)))
+    if venn.get_label_by_id('111'):  
+        venn.get_label_by_id('111').set_text('\n'.join(map(str, interseccion_abc)))
+
+    plt.title("Diagrama de Venn para la Intersección de Conjuntos")
+    plt.show()
+
+
+
 def main ():
     conjuntos = ingresar_conjuntos()
 
@@ -77,6 +103,10 @@ def main ():
     print("Intersección: ", interseccion(conjuntos))
     print("Diferencia del primer conjunto con respecto a los demás: ", diferencia(conjuntos[0], conjuntos[1:]))
     print("Diferencia simetrica de los dos primeros conjuntos: ", diferencia_simetrica(conjuntos[0],conjuntos[1]))
+
+    
+    #Se grafica la interseccion entre los dos primeros conjuntos
+    graficar_interseccion(conjuntos[0], conjuntos[1], conjuntos[2])
 
 main()
 
