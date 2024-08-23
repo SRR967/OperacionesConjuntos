@@ -67,6 +67,14 @@ def es_subconjunto(conjunto_A, otros_conjuntos):
     return True
 
 
+def es_superconjunto(conjunto_A, conjunto_B):
+    es_superconjunto = True
+    for elemento in conjunto_B:
+        if elemento not in conjunto_A:
+            es_superconjunto = False
+            break
+    return es_superconjunto
+
 def graficar_interseccion(conjunto_a,conjunto_b,conjunto_c):
     set_a = set(conjunto_a)
     set_b = set(conjunto_b)
@@ -105,11 +113,8 @@ def main ():
     print("Diferencia simetrica de los dos primeros conjuntos: ", diferencia_simetrica(conjuntos[0],conjuntos[1]))
     print("¿El conjunto A es subconjunto B ?", es_subconjunto(conjuntos[0], conjuntos[1]))
     print("¿El conjunto A es superconjunto de B?", es_superconjunto(conjuntos[0],conjuntos[1]))
-
-
-
     
-    #Se grafica la interseccion entre los dos primeros conjuntos
+    #Se grafica la interseccion entre los tres primeros conjuntos
     graficar_interseccion(conjuntos[0], conjuntos[1], conjuntos[2])
 
 main()
