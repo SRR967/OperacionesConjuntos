@@ -1,6 +1,33 @@
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn3
 
+"""
+Abstraccion
+Se solicita hacer operaciones basicas entre conjuntos y una representacion en diagrama de venn
+
+Informacion relevante: Los conjuntos con que se realizarán las operaciones
+
+Descomposicion: Que acciones se requieren
+
+- Ingresar la imformación de cuantos conjuntos, y de los conjuntos
+- Calcular la union, interseccion, diferencia, diferencia simetrica, 
+    subconjuntos y superconjuntos de los conjuntos
+- Generar el diagrama de venn
+- Mostrar el diagrama
+- Mostrar el mensaje
+
+Reconocimiento de patrones
+- ingresar_conjuntos
+- copiar_conjuntos
+- calcular_calcular_union
+- calcular_calcular_interseccion
+- calcular_calcular_diferencia
+- calcular_calcular_diferencia_simetrica
+- es_subconjuntos
+- es_superconjuntos
+
+"""
+
 
 def ingresar_conjuntos():
     num_conjuntos = int(input("¿Cuántos conjuntos desea ingresar? "))
@@ -16,7 +43,7 @@ def copiar_conjunto(A):
         copia.append(element)
     return copia
 
-def union(conjuntos):
+def calcular_union(conjuntos):
     result = []
     for conjunto in conjuntos:
         for element in conjunto:
@@ -24,7 +51,7 @@ def union(conjuntos):
                 result.append(element)
     return result
 
-def interseccion(conjuntos):
+def calcular_interseccion(conjuntos):
     if not conjuntos:
         return []
     resultado = copiar_conjunto(conjuntos[0])
@@ -37,7 +64,7 @@ def interseccion(conjuntos):
         resultado = nuevo_resultado
     return resultado
 
-def diferencia(primer_conjunto, otros_conjuntos):
+def calcular_diferencia(primer_conjunto, otros_conjuntos):
     resultado = copiar_conjunto(primer_conjunto)
     for conjunto in otros_conjuntos:
         nuevo_resultado = []    
@@ -49,38 +76,36 @@ def diferencia(primer_conjunto, otros_conjuntos):
     return resultado
 
 
-def diferencia_simetrica(conjunto_a, conjunto_b):
-    diferencia_simetrica = set()
+def calcular_diferencia_simetrica(conjunto_a, conjunto_b):
+    calcular_diferencia_simetrica = set()
     for elemento in conjunto_a:
         if elemento not in conjunto_b:
-            diferencia_simetrica.add(elemento)
+            calcular_diferencia_simetrica.add(elemento)
     for elemento in conjunto_b:
         if elemento not in conjunto_a:
-            diferencia_simetrica.add(elemento)
-    return diferencia_simetrica
+            calcular_diferencia_simetrica.add(elemento)
+    return calcular_diferencia_simetrica
 
-def es_subconjunto(conjunto_A, otros_conjuntos):
-    for conjunto_B in otros_conjuntos:
-        for elemento in conjunto_A:
-            if elemento not in conjunto_B:
-                return False
+def es_subconjunto(conjunto_A, conjunto_B):
+    for elemento in conjunto_A:
+        if elemento not in conjunto_B:
+            return False
     return True
 
 
 def es_superconjunto(conjunto_A, conjunto_B):
-    es_superconjunto = True
     for elemento in conjunto_B:
         if elemento not in conjunto_A:
-            es_superconjunto = False
-            break
-    return es_superconjunto
+            return False
+    return True
 
-def graficar_interseccion(conjunto_a,conjunto_b,conjunto_c):
+
+def graficar_calcular_interseccion(conjunto_a,conjunto_b,conjunto_c):
     set_a = set(conjunto_a)
     set_b = set(conjunto_b)
     set_c = set(conjunto_c)
     
-    
+
     venn = venn3([set_a, set_b, set_c], ('Conjunto A', 'Conjunto B', 'Conjunto C'))
 
     
@@ -107,15 +132,15 @@ def graficar_interseccion(conjunto_a,conjunto_b,conjunto_c):
 def main ():
     conjuntos = ingresar_conjuntos()
 
-    print("Unión: ", union(conjuntos))
-    print("Intersección: ", interseccion(conjuntos))
-    print("Diferencia del primer conjunto con respecto a los demás: ", diferencia(conjuntos[0], conjuntos[1:]))
-    print("Diferencia simetrica de los dos primeros conjuntos: ", diferencia_simetrica(conjuntos[0],conjuntos[1]))
+    print("Unión: ", calcular_union(conjuntos))
+    print("Intersección: ", calcular_interseccion(conjuntos))
+    print("Diferencia del primer conjunto con respecto a los demás: ", calcular_diferencia(conjuntos[0], conjuntos[1:]))
+    print("Diferencia simetrica de los dos primeros conjuntos: ", calcular_diferencia_simetrica(conjuntos[0],conjuntos[1]))
     print("¿El conjunto A es subconjunto B ?", es_subconjunto(conjuntos[0], conjuntos[1]))
     print("¿El conjunto A es superconjunto de B?", es_superconjunto(conjuntos[0],conjuntos[1]))
     
-    #Se grafica la interseccion entre los tres primeros conjuntos
-    graficar_interseccion(conjuntos[0], conjuntos[1], conjuntos[2])
+    #Se grafica la calcular_interseccion entre los tres primeros conjuntos
+    graficar_calcular_interseccion(conjuntos[0], conjuntos[1], conjuntos[2])
 
 main()
 
