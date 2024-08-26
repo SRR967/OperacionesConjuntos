@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn3
+from matplotlib_venn import venn2
 
 """
 Abstraccion
@@ -94,21 +95,42 @@ def es_subconjunto(conjunto_A, conjunto_B):
 
 
 def es_superconjunto(conjunto_A, conjunto_B):
+    es_superconjunto = True
     for elemento in conjunto_B:
         if elemento not in conjunto_A:
-            return False
-    return True
+            es_superconjunto = False
+            break
+    return es_superconjunto
+
+def graficar_interseccion_2(conjunto_a,conjunto_b):
+    set_a = set(conjunto_a)
+    set_b = set(conjunto_b)
+    venn = venn2([set_a, set_b], ('Conjunto A', 'Conjunto B'))
+
+    unicos_a = set_a - set_b
+    unicos_b = set_b - set_a
+
+    interseccion_ab = set_a & set_b
+
+    if venn.get_label_by_id('10'):  
+        venn.get_label_by_id('10').set_text('\n'.join(map(str, unicos_a)))
+    if venn.get_label_by_id('01'):  
+        venn.get_label_by_id('01').set_text('\n'.join(map(str, unicos_b)))
+    if venn.get_label_by_id('11'):  
+        venn.get_label_by_id('11').set_text('\n'.join(map(str, interseccion_ab)))
+
+    plt.title("Diagrama de Venn para la Intersección de Conjuntos")
+    plt.show()
 
 
-def graficar_calcular_interseccion(conjunto_a,conjunto_b,conjunto_c):
+
+def graficar_interseccion_3(conjunto_a,conjunto_b,conjunto_c):
     set_a = set(conjunto_a)
     set_b = set(conjunto_b)
     set_c = set(conjunto_c)
     
-
     venn = venn3([set_a, set_b, set_c], ('Conjunto A', 'Conjunto B', 'Conjunto C'))
 
-    
     unicos_a = set_a - set_b - set_c
     unicos_b = set_b - set_a - set_c
     unicos_c = set_c - set_a - set_b
@@ -127,6 +149,14 @@ def graficar_calcular_interseccion(conjunto_a,conjunto_b,conjunto_c):
     plt.title("Diagrama de Venn para la Intersección de Conjuntos")
     plt.show()
 
+def graficar_conjuntos(conjuntos):
+    
+    if len(conjuntos) == 2:
+        graficar_interseccion_2(conjuntos[0],conjuntos[1])
+    elif len(conjuntos) == 3:
+        graficar_interseccion_3(conjuntos[0],conjuntos[1],conjuntos[2])
+    else:
+        print("No se puede graficar la interseccion de mas de 3 conjuntos")
 
 
 def main ():
@@ -140,7 +170,7 @@ def main ():
     print("¿El conjunto A es superconjunto de B?", es_superconjunto(conjuntos[0],conjuntos[1]))
     
     #Se grafica la calcular_interseccion entre los tres primeros conjuntos
-    graficar_calcular_interseccion(conjuntos[0], conjuntos[1], conjuntos[2])
+    graficar_conjuntos(conjuntos)
 
 main()
 
