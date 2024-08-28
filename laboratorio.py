@@ -29,7 +29,6 @@ Reconocimiento de patrones
 
 """
 
-
 def ingresar_conjuntos():
     num_conjuntos = int(input("¿Cuántos conjuntos desea ingresar? "))
     conjuntos = []
@@ -128,24 +127,36 @@ def graficar_interseccion_3(conjunto_a,conjunto_b,conjunto_c):
     set_a = set(conjunto_a)
     set_b = set(conjunto_b)
     set_c = set(conjunto_c)
-    
+
+    # Crear el diagrama de Venn
     venn = venn3([set_a, set_b, set_c], ('Conjunto A', 'Conjunto B', 'Conjunto C'))
 
+    # Elementos únicos de cada región
     unicos_a = set_a - set_b - set_c
     unicos_b = set_b - set_a - set_c
     unicos_c = set_c - set_a - set_b
+    interseccion_ab = set_a & set_b - set_c
+    interseccion_ac = set_a & set_c - set_b
+    interseccion_bc = set_b & set_c - set_a
     interseccion_abc = set_a & set_b & set_c
 
-    
+    # Asignar los elementos a las etiquetas del diagrama de Venn
     if venn.get_label_by_id('100'):  
         venn.get_label_by_id('100').set_text('\n'.join(map(str, unicos_a)))
     if venn.get_label_by_id('010'):  
         venn.get_label_by_id('010').set_text('\n'.join(map(str, unicos_b)))
     if venn.get_label_by_id('001'):  
         venn.get_label_by_id('001').set_text('\n'.join(map(str, unicos_c)))
+    if venn.get_label_by_id('110'):  
+        venn.get_label_by_id('110').set_text('\n'.join(map(str, interseccion_ab)))
+    if venn.get_label_by_id('101'):  
+        venn.get_label_by_id('101').set_text('\n'.join(map(str, interseccion_ac)))
+    if venn.get_label_by_id('011'):  
+        venn.get_label_by_id('011').set_text('\n'.join(map(str, interseccion_bc)))
     if venn.get_label_by_id('111'):  
         venn.get_label_by_id('111').set_text('\n'.join(map(str, interseccion_abc)))
 
+    # Título del gráfico
     plt.title("Diagrama de Venn para la Intersección de Conjuntos")
     plt.show()
 
