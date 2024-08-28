@@ -26,6 +26,9 @@ Reconocimiento de patrones
 - calcular_calcular_diferencia_simetrica
 - es_subconjuntos
 - es_superconjuntos
+- graficar_conjuntos
+- graficar_interseccion2
+- graficar_interseccion3
 
 """
 
@@ -104,11 +107,11 @@ def es_superconjunto(conjunto_A, conjunto_B):
 def graficar_interseccion_2(conjunto_a,conjunto_b):
     set_a = set(conjunto_a)
     set_b = set(conjunto_b)
+
     venn = venn2([set_a, set_b], ('Conjunto A', 'Conjunto B'))
 
     unicos_a = set_a - set_b
     unicos_b = set_b - set_a
-
     interseccion_ab = set_a & set_b
 
     if venn.get_label_by_id('10'):  
@@ -122,16 +125,13 @@ def graficar_interseccion_2(conjunto_a,conjunto_b):
     plt.show()
 
 
-
 def graficar_interseccion_3(conjunto_a,conjunto_b,conjunto_c):
     set_a = set(conjunto_a)
     set_b = set(conjunto_b)
     set_c = set(conjunto_c)
 
-    # Crear el diagrama de Venn
     venn = venn3([set_a, set_b, set_c], ('Conjunto A', 'Conjunto B', 'Conjunto C'))
 
-    # Elementos únicos de cada región
     unicos_a = set_a - set_b - set_c
     unicos_b = set_b - set_a - set_c
     unicos_c = set_c - set_a - set_b
@@ -140,7 +140,6 @@ def graficar_interseccion_3(conjunto_a,conjunto_b,conjunto_c):
     interseccion_bc = set_b & set_c - set_a
     interseccion_abc = set_a & set_b & set_c
 
-    # Asignar los elementos a las etiquetas del diagrama de Venn
     if venn.get_label_by_id('100'):  
         venn.get_label_by_id('100').set_text('\n'.join(map(str, unicos_a)))
     if venn.get_label_by_id('010'):  
@@ -156,7 +155,6 @@ def graficar_interseccion_3(conjunto_a,conjunto_b,conjunto_c):
     if venn.get_label_by_id('111'):  
         venn.get_label_by_id('111').set_text('\n'.join(map(str, interseccion_abc)))
 
-    # Título del gráfico
     plt.title("Diagrama de Venn para la Intersección de Conjuntos")
     plt.show()
 
@@ -180,7 +178,6 @@ def main ():
     print("¿El conjunto A es subconjunto B ?", es_subconjunto(conjuntos[0], conjuntos[1]))
     print("¿El conjunto A es superconjunto de B?", es_superconjunto(conjuntos[0],conjuntos[1]))
     
-    #Se grafica la calcular_interseccion entre los tres primeros conjuntos
     graficar_conjuntos(conjuntos)
 
 main()
